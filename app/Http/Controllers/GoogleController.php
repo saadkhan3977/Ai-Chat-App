@@ -41,7 +41,7 @@ class GoogleController extends Controller
             'Content-Type: application/json',
             'model: text-davinci-003',
             'prompt: as',
-            'Authorization: Bearer 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'
+            'Authorization: Bearer key url https://beta.openai.com/account/api-keyss'
         ),
         ));
 
