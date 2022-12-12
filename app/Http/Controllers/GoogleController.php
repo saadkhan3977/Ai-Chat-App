@@ -41,7 +41,7 @@ class GoogleController extends Controller
             'Content-Type: application/json',
             'model: text-davinci-003',
             'prompt: as',
-            'Authorization: Bearer key url https://beta.openai.com/account/api-keyss'
+            // 'Authorization: Bearer key url https://beta.openai.com/account/api-keyss'
         ),
         ));
 
@@ -50,6 +50,38 @@ class GoogleController extends Controller
         curl_close($curl);
         $res = json_decode($response);
         return response()->json(['success'=>$res->choices]);
+    }
+
+    public function generate_image(Request $request)
+    {
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+        CURLOPT_URL => 'https://api.openai.com/v1/images/generations',
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => '',
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 0,
+        CURLOPT_FOLLOWLOCATION => true,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => 'POST',
+        CURLOPT_POSTFIELDS =>'{
+            "prompt": "'.$request->msg.'",
+            "n": 6,
+            "size": "1024x1024"
+        }',
+        CURLOPT_HTTPHEADER => array(
+            'Content-Type: application/json',
+            // 'Authorization: Bearer key url https://beta.openai.com/account/api-keyss'
+        ),
+        ));
+
+        $response = curl_exec($curl);
+
+        curl_close($curl);
+        $res = json_decode($response);
+        // dd($res->data);
+        return response()->json(['success'=>$res->data]);
     }
         
     /**

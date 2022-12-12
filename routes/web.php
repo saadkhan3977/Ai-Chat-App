@@ -17,6 +17,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/imagegenerate', function () {
+    return view('image_sgenerate');
+});
+
+
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
@@ -31,3 +36,4 @@ Route::middleware([
 Route::get('auth/google', [GoogleController::class, 'redirectToGoogle']);
 Route::get('/auth/google/callback', [GoogleController::class, 'handleGoogleCallback']);
 Route::post('sendmsg', [GoogleController::class, 'sendmsg'])->name('sendmsg');
+Route::post('generate_image', [GoogleController::class, 'generate_image'])->name('generate_image');
